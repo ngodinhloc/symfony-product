@@ -12,14 +12,14 @@ In order to run the test, you will need the following software installed and be 
 These are the steps to set up using WAMP:
 #### 1. Clone the project
 
-Go to WAMP web root directory (by default is 'C:\wamp\www\') and create a folder name "brighte-test", cd to "bright-test" and run the command
+Go to WAMP web root directory (by default is 'C:\wamp\www\') and run the command
 <pre>
-$ git clone 
+$ git clone https://github.com/ngodinhloc/brighte-test.git
 </pre>
 
 #### 2. Install dependencies
 
-Under "brighte_test" directory, run
+cd to "brighte-test" directory, then run the command
 
 <pre>
 $ composer install
@@ -38,7 +38,7 @@ $ php bin/console doctrine:migrations:migrate 20190113224316
 
 #### 4. Create a virtual host for the project
 
-Open "WAMP" service and create a virtual host name "brighte_test" pointing to "C:\wamp\www\brighte-test\public"
+Open "WAMP" service and create a virtual host name "brighte-test" pointing to "C:\wamp\www\brighte-test\public"
 Make sure that you have Apache module "rewrite_module" on then you can access the project at
 
 http://bright-test/product/list/
