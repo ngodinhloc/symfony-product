@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Product List{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          type="text/css">
+    {% block stylesheets %}
+        <style>
+            .product {
+                border-collapse: collapse;
+            }
+
+            .product tr td, th {
+                border: solid 1px lightgray;
+                padding: 5px;
+
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <a href="/product/create/">Create new product</a><br><br>
+    <select class="order-by">
+        <option value="name" {% if order == 'name' %}selected{% endif %}>Order By Name</option>
+        <option value="price" {% if order == 'price' %}selected{% endif %}>Order By Price</option>
+    </select><br><br>
+    <table class="product">
+        <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('viewProduct', {id: product.id}) }}"><img
+                                src="{{ absolute_url('/var/upload/') }}{{ product.picture }}"/></a></td>
+                <td><a href="{{ path('viewProduct', {id: product.id}) }}">{{ product.name }}</a></td>
+                <td>{{ product.price }}</td>
+                <td><a href="{{ path('updateProduct', {id: product.id}) }}">Update</a></td>
+                <td><a href="#" class="delete-product" data-product-id="{{ product.id }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if total > 1 %}
+        <ul class="pagination pagination-sm">
+            <li {{ page == 1 ? 'class="disabled"' }}>
+                <a href="{{ path('listProducts', {page: page-1 < 1 ? 1 : page-1, order: order}) }}">«</a>
+            </li>
+            {% for i in 1..total %}
+                <li {{ page == i ? 'class="active"' }}>
+                    <a href="{{ path('listProducts', {page: i, order: order}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+            <li {{ page == total ? 'class="disabled"' }}>
+                <a href="{{ path('listProducts', {page: page+1 <= total ? page+1 : page, order: order}) }}">»</a>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('.order-by').on("change", function () {
+                location.href = "/product/list/?order=" + this.value;
+            });
+            $('body').on('click', '.delete-product', function () {
+                var id = $(this).data("product-id");
+                var conf = confirm("Are you sure to delete this product");
+                if (conf) {
+                    deleteProduct(id);
+                }
+            });
+
+        });
+
+        function deleteProduct(id) {
+            $.post("/product/delete/", {id: id}, function (data) {
+                if (data.result) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+{% endblock %}
+</body>
+</html>

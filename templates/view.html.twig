@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Product Details{% endblock %}</title>
+    {% block stylesheets %}
+        <style>
+            .product {
+                border-collapse: collapse;
+            }
+
+            .product tr td, th {
+                border: solid 1px lightgray;
+                padding: 5px;
+
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <h4>Product Details</h4><br>
+    <table class="product">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ product.id }}</td>
+            <td><img src="{{ absolute_url('/var/upload/') }}{{ product.picture }}"/></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
