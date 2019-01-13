@@ -27,7 +27,7 @@ $ composer install
 
 #### 3. Create database
 
-Start WAMP services and create a new database name "brighte_test". 
+Start WAMP services and create a new database nameds "brighte_test". 
 If you are not using default username and password (root and empty) then open ".env" and update "DATABASE_URL" to the correct username and password.
 
 Run the the following command to create the table
@@ -39,7 +39,7 @@ $ php bin/console doctrine:migrations:migrate 20190113224316
 #### 4. Create a virtual host for the project
 
 Open "WAMP" service and create a virtual host name "brighte-test" pointing to "C:\wamp\www\brighte-test\public"
-Make sure that you have Apache module "rewrite_module" on then you can access the project at
+Make sure that you have Apache module "rewrite_module" on, then you can access the project at
 
 http://bright-test/product/list/
 
