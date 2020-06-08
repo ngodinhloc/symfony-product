@@ -17,7 +17,6 @@ class Product
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     *
      * @var integer
      */
     protected $id;
